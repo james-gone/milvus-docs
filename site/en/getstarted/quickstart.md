@@ -20,6 +20,7 @@ Once you have obtained the cluster credentials or an API key, you can use it to 
 
 ```python
 from pymilvus import MilvusClient, DataType
+from pymilvus.milvus_client.index import IndexParams
 
 # 1. Set up a Milvus client
 client = MilvusClient(
@@ -85,7 +86,7 @@ schema.add_field(field_name="my_id", datatype=DataType.INT64, is_primary=True)
 schema.add_field(field_name="my_vector", datatype=DataType.FLOAT_VECTOR, dim=5)
 
 # 3.3. Prepare index parameters
-index_params = client.prepare_index_params()
+index_params = IndexParams()
 
 # 3.4. Add indexes
 index_params.add_index(
@@ -102,7 +103,8 @@ index_params.add_index(
 client.create_collection(
     collection_name="customized_setup",
     schema=schema,
-    index_params=index_params
+    index_params=index_params,
+    dimension=5
 )
 ```
 
